@@ -607,36 +607,7 @@ with tabs[2]:
             ]:
                 st.markdown(f"  - {d}")
         
-        with c2:
-            st.markdown("#### Impacto de la estandarización")
-            np.random.seed(1)
-            orig = np.random.normal(66.6, 7.3, 300).clip(45, 92)
-            scaled = (orig - orig.mean()) / orig.std()
-            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
-            axes[0].hist(orig, bins=20, color=ACCENT, alpha=0.7, edgecolor="white")
-            axes[0].set_title("Original\nheart_rate_resting_bpm", fontsize=9)
-            axes[0].set_xlabel("BPM")
-            axes[1].hist(scaled, bins=20, color=BLUE, alpha=0.7, edgecolor="white")
-            axes[1].set_title("Estandarizado\n(μ=0, σ=1)", fontsize=9)
-            axes[1].set_xlabel("Desviaciones estándar")
-            for ax in axes:
-                ax.spines[["top","right"]].set_visible(False)
-                ax.set_facecolor("#FAFAFA")
-                ax.set_ylabel("Frecuencia")
-            # Líneas de referencia
-            axes[0].axvline(orig.mean(), color=NAVY, lw=1.8, ls="--", label=f"μ={orig.mean():.1f}")
-            axes[0].axvline(orig.mean()-orig.std(), color=NAVY, lw=1, ls=":", alpha=0.6)
-            axes[0].axvline(orig.mean()+orig.std(), color=NAVY, lw=1, ls=":", alpha=0.6)
-            axes[0].legend(fontsize=8)
-            axes[1].axvline(0, color=NAVY, lw=1.8, ls="--", label="μ=0")
-            axes[1].axvline(-1, color=NAVY, lw=1, ls=":", alpha=0.6, label="±1σ")
-            axes[1].axvline(1, color=NAVY, lw=1, ls=":", alpha=0.6)
-            axes[1].legend(fontsize=8)
-            fig.patch.set_facecolor("#FAFAFA")
-            plt.tight_layout()
-            st.pyplot(fig); plt.close()
-
-
+        
     elif "Naive" in pip_sel:
         st.markdown("### Pipeline C – Naive Bayes Gaussiano")
         pasos = [
@@ -660,26 +631,7 @@ with tabs[2]:
                 "**Diferenciacion nominal/ordinal**: Mismo criterio que Pipeline B.",
             ]:
                 st.markdown(f"  - {d}")
-        with c2:
-            st.markdown("#### Efecto de Yeo-Johnson")
-            np.random.seed(2)
-            sesg = np.concatenate([np.zeros(260), np.random.exponential(50, 240)]).clip(0, 400)
-            from scipy.stats import yeojohnson, skew
-            transformada, _ = yeojohnson(sesg + 0.001)
-            fig, axes = plt.subplots(1, 2, figsize=(6, 3))
-            axes[0].hist(sesg, bins=20, color=ACCENT, alpha=0.7, edgecolor="white")
-            axes[0].set_title(f"Original\ncaffeine_mg_before_bed\n(skew={skew(sesg):.2f})", fontsize=9)
-            axes[0].set_xlabel("mg de cafeína")
-            axes[1].hist(transformada, bins=20, color=GREEN, alpha=0.7, edgecolor="white")
-            axes[1].set_title(f"Tras Yeo-Johnson\n(skew={skew(transformada):.2f})", fontsize=9)
-            axes[1].set_xlabel("Valor transformado")
-            for ax in axes:
-                ax.spines[["top","right"]].set_visible(False)
-                ax.set_facecolor("#FAFAFA")
-                ax.set_ylabel("Frecuencia")
-            fig.patch.set_facecolor("#FAFAFA")
-            plt.tight_layout()
-            st.pyplot(fig); plt.close()
+        
 
     else:
         st.markdown("### Pipeline D – Gamma-Pydra")
