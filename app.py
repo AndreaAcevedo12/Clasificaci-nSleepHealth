@@ -707,8 +707,8 @@ with tabs[3]:
     if vista == "Resumen general":
         c1, c2 = st.columns([1.3, 1])
         with c1:
-            st.markdown("#### Comparación de metricas")
-            metrica_sel = st.selectbox("Metrica:", ["F1-Score", "Accuracy", "Precision", "Recall"])
+            st.markdown("#### Comparación de métricas")
+            metrica_sel = st.selectbox("Métrica:", ["F1-Score", "Accuracy", "Precision", "Recall"])
             fig, ax = plt.subplots(figsize=(8, 4.5))
             fig.patch.set_facecolor("white")
             df_s = RESULTADOS.sort_values(metrica_sel, ascending=True)
@@ -870,7 +870,7 @@ with tabs[3]:
         ax.plot([0, 1], [0, 1], "k--", lw=1, alpha=0.5, label="Azar (AUC=0.5)")
         ax.set_xlabel("Tasa de Falsos Positivos", fontsize=11)
         ax.set_ylabel("Tasa de Verdaderos Positivos", fontsize=11)
-        ax.set_title("Curvas ROC – Comparacion de clasificadores",
+        ax.set_title("Curvas ROC - Comparación de clasificadores",
                      fontsize=13, fontweight="bold")
         ax.legend(loc="lower right", fontsize=9)
         ax.spines[["top", "right"]].set_visible(False)
@@ -890,7 +890,7 @@ with tabs[3]:
                 st.code(params, language=None)
 
         st.markdown("---")
-        st.markdown("#### Espacio de busqueda por modelo")
+        st.markdown("#### Espacio de búsqueda por modelo")
         st.dataframe(
             pd.DataFrame({
                 "Modelo": list(MEJORES_PARAMS.keys()),
@@ -909,7 +909,7 @@ with tabs[3]:
             use_container_width=True,
         )
 
-        st.markdown("#### CV Score durante busqueda")
+        st.markdown("#### CV Score durante búsqueda")
         fig, ax = plt.subplots(figsize=(9, 4))
         fig.patch.set_facecolor("white")
         cv_data = RESULTADOS.dropna(subset=["CV_Score"]).sort_values(
@@ -933,7 +933,7 @@ with tabs[3]:
 
     # ── Comparativa detallada ─────────────────────────────────────────────
     elif vista == "Comparativa detallada":
-        st.markdown("#### Grafica de radar – Perfil de cada modelo")
+        st.markdown("#### Gráfica de radar - Perfil de cada modelo")
         categorias = ["Accuracy", "Precision", "Recall", "F1-Score"]
         modelos_radar = st.multiselect(
             "Selecciona modelos:",
@@ -1000,15 +1000,15 @@ with tabs[4]:
 
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("#### Ganador: Regresion Logistica")
+        st.markdown("#### Ganador: Regresión Logística")
         st.markdown(
             '<div class="insight-box">'
-            'La Regresión Logística alcanzo el mejor F1-Score de <b>0.7265</b>, '
-            'con C=0.01 y penalizacion L2. Su éxito se explica por la <b>ausencia '
+            'La Regresión Logística alcanzó el mejor F1-Score de <b>0.7265</b>, '
+            'con C=0.01 y penalización L2. Su éxito se explica por la <b>ausencia '
             'de multicolinealidad</b> en las variables del dataset y el correcto '
             'preprocesamiento (StandardScaler + OHE + OrdinalEncoder). '
-            'Un C bajo indica alta regularizacion, lo que sugiere que el modelo '
-            'aprendio a generalizar bien sin sobreajustar.'
+            'Un C bajo indica alta regularización, lo que sugiere que el modelo '
+            'aprendió a generalizar bien sin sobreajustar.'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -1020,7 +1020,7 @@ with tabs[4]:
             'RandomForest con criterion=entropy y 300 estimadores aprovecha la '
             'diversidad del ensamble. AdaBoost con max_depth=2 y learning_rate=0.5 '
             'aprende de forma incremental sin sobreajustar. '
-            '<b>El arbol individual</b> fue el más débil del grupo, lo que refuerza '
+            '<b>El árbol individual</b> fue el más débil del grupo, lo que refuerza '
             'el valor del ensamble.'
             '</div>',
             unsafe_allow_html=True,
@@ -1029,8 +1029,8 @@ with tabs[4]:
         st.markdown("#### Gamma-Pydra")
         st.markdown(
             '<div class="insight-box">'
-            'A pesar de ser un algoritmo experimental, Gamma-Pydra logro un '
-            '<b>recall de 0.82 para la clase minoritaria</b> (el mas alto de todos), '
+            'A pesar de ser un algoritmo experimental, Gamma-Pydra logró un '
+            '<b>recall de 0.82 para la clase minoritaria</b> (el más alto de todos), '
             'sacrificando precisión global. Esto lo hace especialmente útil cuando '
             'el costo de un falso negativo es alto. El manejo nativo de NaN es '
             'una ventaja frente al dataset.'
@@ -1065,9 +1065,9 @@ with tabs[4]:
 
         st.markdown("#### Limitaciones identificadas")
         for lim in [
-           "Gamma-Pydra tiene **complejidad cuadrática** O(n^2) en predicción — no escala bien.",
-            "El balanceo con **SMOTE puede introducir ruido** al generar muestras sinteticas cercanas al limite de decisión (BorderlineSMOTE lo mitiga).",
-            "La validación cruzada de **Gamma uso solo k=3** (por costo computacional), lo que hace su estimación menos confiable.",
+           "Gamma-Pydra tiene <b>complejidad cuadrática</b> O(n^2) en predicción — no escala bien.",
+            "El balanceo con <b>SMOTE puede introducir ruido</b> al generar muestras sintéticas cercanas al límite de decisión (BorderlineSMOTE lo mitiga).",
+            "La validación cruzada de <b>Gamma usó solo k=3</b> (por costo computacional), lo que hace su estimación menos confiable.",
         ]:
             st.markdown(f"  - {lim}")
 
@@ -1076,27 +1076,27 @@ with tabs[4]:
     col1, col2, col3 = st.columns(3)
     conclusiones = [
         ("Mejor modelo",
-         "La **Regresión Logistica** obtuvo F1=0.7265, demostrando que un modelo "
+         "La <b>Regresión Logística</b> obtuvo F1=0.7265, demostrando que un modelo "
          "simple y bien regularizado puede superar a ensambles complejos cuando "
          "el preprocesamiento es el adecuado."),
         ("Selección de métrica",
-         "En datasets desbalanceados, **F1-Score y Recall** son más informativos "
-         "que la Accuracy. Gamma-Pydra lo evidencio: accuracy=0.68 pero "
+         "En datasets desbalanceados, <b>F1-Score y Recall</b> son más informativos "
+         "que la Accuracy. Gamma-Pydra lo evidenció: accuracy=0.68 pero "
          "recall=0.82 en clase minoritaria."),
         ("Preprocesamiento",
-         "Diseñar **pipelines diferenciados** por familia de modelo es crítico. "
+         "Diseñar <b>pipelines diferenciados</b> por familia de modelo es crítico. "
          "Un mismo tratamiento para todos los modelos hubiera reducido su "
          "rendimiento potencial."),
         ("Gamma-Pydra",
-         "El algoritmo propio demostró ser **competitivo y funcional** con datos "
+         "El algoritmo propio demostró ser <b>competitivo y funcional</b> con datos "
          "reales y valores nulos, validando su implementación como alternativa "
          "a clasificadores estandar."),
         ("Balanceo",
-         "La combinación **Undersampling + BorderlineSMOTE** fue conservadora y "
+         "La combinación <b>Undersampling + BorderlineSMOTE</b> fue conservadora y "
          "efectiva: mejoro el recall sin destruir información de la clase "
          "mayoritaria."),
         ("Ensambles",
-         "**RandomForest y AdaBoost** superaron al arbol individual en ~4 puntos "
+         "<b>RandomForest y AdaBoost</b> superaron al árbol individual en ~4 puntos "
          "de F1, confirmando que la diversidad de estimadores reduce la varianza "
          "y el sobreajuste."),
     ]
@@ -1109,13 +1109,13 @@ with tabs[4]:
             )
 
     st.markdown("---")
-    st.markdown("### Reflexion metodologica")
+    st.markdown("### Conclusiones finales")
     st.success(
-        "Esta practica demostró que el éxito en clasificación supervisada no depende "
-        "unicamente del algoritmo elegido, sino del proceso completo: el análisis "
+        "Esta práctica demostró que el éxito en clasificación supervisada no depende "
+        "únicamente del algoritmo elegido, sino del proceso completo: el análisis "
         "exploratorio inicial, las decisiones de preprocesamiento fundamentadas en los "
-        "supuestos de cada modelo, el tratamiento adecuado del desbalance, la busqueda "
-        "sistematica de hiperparámetros y la evaluacion con metricas apropiadas. "
-        "La combinación de estos elementos permitio obtener modelos consistentes con "
+        "supuestos de cada modelo, el tratamiento adecuado del desbalance, la búsqueda "
+        "sistemática de hiperparámetros y la evaluación con métricas apropiadas. "
+        "La combinación de estos elementos permitió obtener modelos consistentes con "
         "F1 > 0.72 en un problema de predicción de salud del sueño."
     )
