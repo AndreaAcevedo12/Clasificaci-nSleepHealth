@@ -141,10 +141,10 @@ st.markdown("---")
 # ══════════════════════════════════════════════════════════════════════════════
 tabs = st.tabs([
     "Inicio",
-    "Analisis Exploratorio",
+    "Análisis exploratorio",
     "Preprocesamiento",
-    "Modelado y Resultados",
-    "Analisis Critico",
+    "Modelado y resultados",
+    "Análisis final",
 ])
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ with tabs[0]:
 
         st.markdown("#### Flujo de trabajo")
         for p in [
-            "1. Analisis exploratorio (EDA)",
+            "1. Análisis exploratorio (EDA)",
             "2. Preprocesamiento diferenciado por familia de modelo",
             "3. Balanceo de clases (UnderSampling + BorderlineSMOTE)",
             "4. Entrenamiento con GridSearchCV + StratifiedKFold (k=5)",
@@ -197,10 +197,10 @@ with tabs[0]:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TAB 1 — ANALISIS EXPLORATORIO
+# TAB 1 — ANÁLISIS EXPLORATORIO
 # ─────────────────────────────────────────────────────────────────────────────
 with tabs[1]:
-    st.markdown("### Analisis Exploratorio del Dataset")
+    st.markdown("### Análisis Exploratorio del Dataset")
 
     sub = st.radio(
         "Seccion:",
@@ -242,7 +242,7 @@ with tabs[1]:
             for k, v in vars_cat.items():
                 st.markdown(f"  - `{k}` — {v}")
 
-            st.markdown("#### Estadisticas clave")
+            st.markdown("#### Estadisticas principales")
             st.dataframe(
                 pd.DataFrame({
                     "Variable": ["age", "bmi", "sleep_duration_hrs",
@@ -281,7 +281,7 @@ with tabs[1]:
         }
         df_sim = pd.DataFrame(data_sim)
 
-        st.markdown("#### Distribuciones de variables numericas clave")
+        st.markdown("#### Distribuciones de variables numericas")
         st.markdown(
             '<div class="insight-box">'
             'Variables con distribucion gaussiana: <code>sleep_duration_hrs</code>, '
@@ -559,7 +559,7 @@ with tabs[2]:
 
         c1, c2 = st.columns(2)
         with c1:
-            st.markdown("#### Decisiones clave")
+            st.markdown("#### Decisiones relevantes")
             for d in [
                 "**Imputacion simple (mediana)**: Los arboles son robustos, no requieren imputacion sofisticada.",
                 "**OrdinalEncoder para TODAS las categoricas**: Los arboles no asumen linealidad.",
@@ -597,7 +597,7 @@ with tabs[2]:
 
         c1, c2 = st.columns(2)
         with c1:
-            st.markdown("#### Decisiones clave")
+            st.markdown("#### Decisiones relevantes")
             for d in [
                 "**KNN Imputer**: Imputacion mas robusta; estos modelos son sensibles a valores perdidos.",
                 "**Winzorizacion (p5–p95)**: KNN y SVM son muy sensibles a outliers.",
@@ -623,7 +623,7 @@ with tabs[2]:
 
         c1, c2 = st.columns(2)
         with c1:
-            st.markdown("#### Decisiones clave")
+            st.markdown("#### Decisiones relevantes")
             for d in [
                 "**Gaussian NB asume normalidad**: Cada feature debe seguir distribucion gaussiana por clase.",
                 "**Yeo-Johnson**: Transforma variables no gaussianas (caffeine, nap_duration, age...) hacia normalidad.",
@@ -647,7 +647,7 @@ with tabs[2]:
 
         c1, c2 = st.columns(2)
         with c1:
-            st.markdown("#### Decisiones clave")
+            st.markdown("#### Decisiones relevantes")
             for d in [
                 "**Algoritmo propio**: Clasificador basado en residuos con tabla PYDRA para manejo de NaN.",
                 "**Sin imputacion**: La tabla PYDRA tiene 8 variantes para tratar NaN (se uso variante 0 y 6).",
@@ -698,8 +698,8 @@ with tabs[3]:
 
     vista = st.radio(
         "Selecciona vista:",
-        ["Resumen general", "Matrices de confusion", "Curvas ROC",
-         "Hiperparametros", "Comparativa detallada"],
+        ["Resumen general", "Matrices de confusión", "Curvas ROC",
+         "Hiperparámetros", "Comparativa detallada"],
         horizontal=True,
     )
 
@@ -707,7 +707,7 @@ with tabs[3]:
     if vista == "Resumen general":
         c1, c2 = st.columns([1.3, 1])
         with c1:
-            st.markdown("#### Comparacion de metricas")
+            st.markdown("#### Comparación de metricas")
             metrica_sel = st.selectbox("Metrica:", ["F1-Score", "Accuracy", "Precision", "Recall"])
             fig, ax = plt.subplots(figsize=(8, 4.5))
             fig.patch.set_facecolor("white")
@@ -770,8 +770,8 @@ with tabs[3]:
             plt.close()
 
     # ── Matrices de confusion ─────────────────────────────────────────────
-    elif vista == "Matrices de confusion":
-        st.markdown("#### Matrices de confusion – Conjunto de prueba (n=1000)")
+    elif vista == "Matrices de confusión":
+        st.markdown("#### Matrices de confusión – Conjunto de prueba (n=1000)")
 
         modelos_sel = st.multiselect(
             "Selecciona modelos:",
@@ -811,8 +811,8 @@ with tabs[3]:
             plt.close()
 
         st.markdown("---")
-        st.markdown("#### Analisis por clase")
-        modelo_detail = st.selectbox("Modelo para analisis detallado:", list(CM.keys()))
+        st.markdown("#### Análisis por clase")
+        modelo_detail = st.selectbox("Modelo para análisis detallado:", list(CM.keys()))
         cm_d = CM[modelo_detail]
         tn, fp = cm_d[0, 0], cm_d[0, 1]
         fn, tp = cm_d[1, 0], cm_d[1, 1]
@@ -880,9 +880,9 @@ with tabs[3]:
         st.pyplot(fig)
         plt.close()
 
-    # ── Hiperparametros ───────────────────────────────────────────────────
-    elif vista == "Hiperparametros":
-        st.markdown("#### Mejores hiperparametros por modelo (GridSearchCV)")
+    # ── Hiperparámetros ───────────────────────────────────────────────────
+    elif vista == "Hiperparámetros":
+        st.markdown("#### Mejores hiperparámetros por modelo (GridSearchCV)")
         for modelo, params in MEJORES_PARAMS.items():
             col1, col2 = st.columns([1, 2.5])
             with col1:
@@ -965,7 +965,7 @@ with tabs[3]:
             plt.close()
 
         st.markdown("---")
-        st.markdown("#### Analisis de errores por modelo (FP y FN)")
+        st.markdown("#### Análisis de errores por modelo (FP y FN)")
         df_err = RESULTADOS.copy()
         df_err["FP_rate"] = [177/620, 214/620, 160/620, 222/620,
                               150/620, 214/620, 167/620, 252/620]
@@ -994,10 +994,10 @@ with tabs[3]:
         plt.close()
 
 # ─────────────────────────────────────────────────────────────────────────────
-# TAB 4 — ANALISIS CRITICO
+# TAB 4 — ANÁLISIS CRITICO
 # ─────────────────────────────────────────────────────────────────────────────
 with tabs[4]:
-    st.markdown("### Analisis Critico y Conclusiones")
+    st.markdown("### Análisis y conclusiones")
 
     c1, c2 = st.columns(2)
     with c1:
@@ -1040,7 +1040,7 @@ with tabs[4]:
         )
 
     with c2:
-        st.markdown("#### Por que accuracy no es suficiente?")
+        st.markdown("#### ¿Por qué accuracy no es suficiente?")
         fig, ax = plt.subplots(figsize=(6, 4))
         fig.patch.set_facecolor("white")
         modelos_plot = ["Logistica", "NaiveBayes", "Gamma", "KNN"]
@@ -1066,8 +1066,7 @@ with tabs[4]:
 
         st.markdown("#### Limitaciones identificadas")
         for lim in [
-            "El dataset fue **generado sinteticamente** con ruido inducido (Kaggle), lo que puede afectar la generalizacion real.",
-            "Gamma-Pydra tiene **complejidad cuadratica** O(n^2) en prediccion — no escala bien.",
+           "Gamma-Pydra tiene **complejidad cuadratica** O(n^2) en prediccion — no escala bien.",
             "El balanceo con **SMOTE puede introducir ruido** al generar muestras sinteticas cercanas al limite de decision (BorderlineSMOTE lo mitiga).",
             "La validacion cruzada de **Gamma uso solo k=3** (por costo computacional), lo que hace su estimacion menos confiable.",
         ]:
@@ -1114,10 +1113,10 @@ with tabs[4]:
     st.markdown("### Reflexion metodologica")
     st.success(
         "Esta practica demostro que el exito en clasificacion supervisada no depende "
-        "unicamente del algoritmo elegido, sino del proceso completo: el analisis "
+        "unicamente del algoritmo elegido, sino del proceso completo: el análisis "
         "exploratorio inicial, las decisiones de preprocesamiento fundamentadas en los "
         "supuestos de cada modelo, el tratamiento adecuado del desbalance, la busqueda "
-        "sistematica de hiperparametros y la evaluacion con metricas apropiadas. "
+        "sistematica de hiperparámetros y la evaluacion con metricas apropiadas. "
         "La combinacion de estos elementos permitio obtener modelos consistentes con "
         "F1 > 0.72 en un problema de prediccion de salud del sueno."
     )
