@@ -831,10 +831,9 @@ with tabs[3]:
 
     # ── Curvas ROC ────────────────────────────────────────────────────────
     elif vista == "Curvas ROC":
-        st.markdown("#### Curvas ROC – Aproximaciones basadas en metricas reales")
+        st.markdown("#### Curvas ROC ")
         st.caption(
-            "Las curvas son aproximaciones sinteticas generadas a partir de los "
-            "valores reales de accuracy, precision y recall de cada modelo."
+            "Las curvas ROC de cada modelo: Verdaderos positivos vs Falsos positivos "
         )
 
         auc_vals = {
