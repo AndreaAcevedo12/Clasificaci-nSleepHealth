@@ -1117,5 +1117,5 @@ with tabs[4]:
         "supuestos de cada modelo, el tratamiento adecuado del desbalance, la busqueda "
         "sistematica de hiperparámetros y la evaluacion con metricas apropiadas. "
         "La combinación de estos elementos permitio obtener modelos consistentes con "
-        "F1 > 0.72 en un problema de predicción de salud del sueno."
+        "F1 > 0.72 en un problema de predicción de salud del sueño."
     )
