@@ -1003,8 +1003,8 @@ with tabs[4]:
         st.markdown("#### Ganador: Regresion Logistica")
         st.markdown(
             '<div class="insight-box">'
-            'La Regresion Logistica alcanzo el mejor F1-Score de <b>0.7265</b>, '
-            'con C=0.01 y penalizacion L2. Su exito se explica por la <b>ausencia '
+            'La Regresión Logística alcanzo el mejor F1-Score de <b>0.7265</b>, '
+            'con C=0.01 y penalizacion L2. Su éxito se explica por la <b>ausencia '
             'de multicolinealidad</b> en las variables del dataset y el correcto '
             'preprocesamiento (StandardScaler + OHE + OrdinalEncoder). '
             'Un C bajo indica alta regularizacion, lo que sugiere que el modelo '
@@ -1013,14 +1013,14 @@ with tabs[4]:
             unsafe_allow_html=True,
         )
 
-        st.markdown("#### Modelos de arbol")
+        st.markdown("#### Modelos de árbol")
         st.markdown(
             '<div class="insight-box">'
             '<b>RandomForest y AdaBoost</b> quedaron muy cerca (F1 ~0.726). '
             'RandomForest con criterion=entropy y 300 estimadores aprovecha la '
             'diversidad del ensamble. AdaBoost con max_depth=2 y learning_rate=0.5 '
             'aprende de forma incremental sin sobreajustar. '
-            '<b>El arbol individual</b> fue el mas debil del grupo, lo que refuerza '
+            '<b>El arbol individual</b> fue el más débil del grupo, lo que refuerza '
             'el valor del ensamble.'
             '</div>',
             unsafe_allow_html=True,
@@ -1031,7 +1031,7 @@ with tabs[4]:
             '<div class="insight-box">'
             'A pesar de ser un algoritmo experimental, Gamma-Pydra logro un '
             '<b>recall de 0.82 para la clase minoritaria</b> (el mas alto de todos), '
-            'sacrificando precision global. Esto lo hace especialmente util cuando '
+            'sacrificando precisión global. Esto lo hace especialmente útil cuando '
             'el costo de un falso negativo es alto. El manejo nativo de NaN es '
             'una ventaja frente al dataset.'
             '</div>',
@@ -1065,9 +1065,9 @@ with tabs[4]:
 
         st.markdown("#### Limitaciones identificadas")
         for lim in [
-           "Gamma-Pydra tiene **complejidad cuadratica** O(n^2) en prediccion — no escala bien.",
-            "El balanceo con **SMOTE puede introducir ruido** al generar muestras sinteticas cercanas al limite de decision (BorderlineSMOTE lo mitiga).",
-            "La validacion cruzada de **Gamma uso solo k=3** (por costo computacional), lo que hace su estimacion menos confiable.",
+           "Gamma-Pydra tiene **complejidad cuadrática** O(n^2) en predicción — no escala bien.",
+            "El balanceo con **SMOTE puede introducir ruido** al generar muestras sinteticas cercanas al limite de decisión (BorderlineSMOTE lo mitiga).",
+            "La validación cruzada de **Gamma uso solo k=3** (por costo computacional), lo que hace su estimación menos confiable.",
         ]:
             st.markdown(f"  - {lim}")
 
@@ -1076,24 +1076,24 @@ with tabs[4]:
     col1, col2, col3 = st.columns(3)
     conclusiones = [
         ("Mejor modelo",
-         "La **Regresion Logistica** obtuvo F1=0.7265, demostrando que un modelo "
+         "La **Regresión Logistica** obtuvo F1=0.7265, demostrando que un modelo "
          "simple y bien regularizado puede superar a ensambles complejos cuando "
          "el preprocesamiento es el adecuado."),
-        ("Seleccion de metrica",
-         "En datasets desbalanceados, **F1-Score y Recall** son mas informativos "
+        ("Selección de métrica",
+         "En datasets desbalanceados, **F1-Score y Recall** son más informativos "
          "que la Accuracy. Gamma-Pydra lo evidencio: accuracy=0.68 pero "
          "recall=0.82 en clase minoritaria."),
         ("Preprocesamiento",
-         "Disenar **pipelines diferenciados** por familia de modelo es critico. "
+         "Diseñar **pipelines diferenciados** por familia de modelo es crítico. "
          "Un mismo tratamiento para todos los modelos hubiera reducido su "
          "rendimiento potencial."),
         ("Gamma-Pydra",
-         "El algoritmo propio demostro ser **competitivo y funcional** con datos "
-         "reales y valores nulos, validando su implementacion como alternativa "
+         "El algoritmo propio demostró ser **competitivo y funcional** con datos "
+         "reales y valores nulos, validando su implementación como alternativa "
          "a clasificadores estandar."),
         ("Balanceo",
-         "La combinacion **Undersampling + BorderlineSMOTE** fue conservadora y "
-         "efectiva: mejoro el recall sin destruir informacion de la clase "
+         "La combinación **Undersampling + BorderlineSMOTE** fue conservadora y "
+         "efectiva: mejoro el recall sin destruir información de la clase "
          "mayoritaria."),
         ("Ensambles",
          "**RandomForest y AdaBoost** superaron al arbol individual en ~4 puntos "
@@ -1111,11 +1111,11 @@ with tabs[4]:
     st.markdown("---")
     st.markdown("### Reflexion metodologica")
     st.success(
-        "Esta practica demostro que el exito en clasificacion supervisada no depende "
+        "Esta practica demostró que el éxito en clasificación supervisada no depende "
         "unicamente del algoritmo elegido, sino del proceso completo: el análisis "
         "exploratorio inicial, las decisiones de preprocesamiento fundamentadas en los "
         "supuestos de cada modelo, el tratamiento adecuado del desbalance, la busqueda "
         "sistematica de hiperparámetros y la evaluacion con metricas apropiadas. "
-        "La combinacion de estos elementos permitio obtener modelos consistentes con "
-        "F1 > 0.72 en un problema de prediccion de salud del sueno."
+        "La combinación de estos elementos permitio obtener modelos consistentes con "
+        "F1 > 0.72 en un problema de predicción de salud del sueno."
     )
